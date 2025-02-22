@@ -1,0 +1,35 @@
+table { 
+    width: auto; 
+    border-collapse: collapse; 
+    margin:50px auto;
+    max-width:90%;
+    }
+
+th { 
+    background: red; 
+    color: white; 
+    font-weight: bold; 
+    }
+
+td, th { 
+    padding: 10px; 
+    border: 1px solid #ccc; 
+    text-align: left;
+    vertical-align: text-top; 
+    font-size: 18px;
+    }
+
+.labels tr td {
+    background-color: black;
+    font-weight: bold;
+    color: #fff;
+}
+
+.label tr td label {
+    display: block;
+}
+
+
+[data-toggle="toggle"] {
+    display: none;
+}

