@@ -1,0 +1,15 @@
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to right, black, red, green);
+  color: white;
+  animation: fadeIn 1s ease-in-out;
+}
+form input, form button {
+  display: block;
+  margin: 10px 0;
+  padding: 8px;
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
