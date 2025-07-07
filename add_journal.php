@@ -3,30 +3,32 @@ session_start();
 if (!isset($_SESSION['admin'])) header("Location: auth/login.php");
 include 'includes/db.php';
 
-// Helper: Generate slug from title
-function slugify($text) {
-  return strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $text), '-'));
-}
-
 $success = '';
 $error = '';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  $title = $_POST['title'];
-  $author = $_POST['author'];
-  $summary = $_POST['summary'];
-  $date = $_POST['date'];
-  $slug = slugify($title);
-  $pdfName = '';
+// Generate slug from title
+function generateSlug($str) {
+  return strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $str)));
+}
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  $title = trim($_POST['title']);
+  $author = trim($_POST['author']);
+  $summary = trim($_POST['summary']);
+  $tags = trim($_POST['tags']);
+  $date = $_POST['date'];
+  $slug = generateSlug($title);
+
+  // PDF Upload
+  $pdfName = '';
   if (!empty($_FILES['pdf']['name'])) {
     $pdfName = time() . '_' . basename($_FILES['pdf']['name']);
     $target = 'uploads/journals/' . $pdfName;
     move_uploaded_file($_FILES['pdf']['tmp_name'], $target);
   }
 
-  $stmt = $conn->prepare("INSERT INTO journals (title, author, summary, file, slug, created_at) VALUES (?, ?, ?, ?, ?, ?)");
-  $stmt->bind_param("ssssss", $title, $author, $summary, $pdfName, $slug, $date);
+  $stmt = $conn->prepare("INSERT INTO journals (title, author, summary, tags, file, created_at, slug) VALUES (?, ?, ?, ?, ?, ?, ?)");
+  $stmt->bind_param("sssssss", $title, $author, $summary, $tags, $pdfName, $date, $slug);
 
   if ($stmt->execute()) {
     $success = "Journal added successfully!";
@@ -81,6 +83,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="mb-4">
           <label class="block mb-1 font-semibold text-gray-700">Summary</label>
           <textarea name="summary" rows="4" required class="w-full border border-gray-300 rounded px-3 py-2"></textarea>
+        </div>
+
+        <div class="mb-4">
+          <label class="block mb-1 font-semibold text-gray-700">Tags (comma-separated)</label>
+          <input name="tags" class="w-full border border-gray-300 rounded px-3 py-2" placeholder="e.g. politics, democracy, africa" />
         </div>
 
         <div class="mb-4">

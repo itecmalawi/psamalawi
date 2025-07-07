@@ -5,6 +5,23 @@
   <meta charset="utf-8">
   <title>Malawi Political Science Association</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+  .pagination { display: flex; list-style: none; padding-left: 0; }
+  .page-item { margin: 0 4px; }
+  .page-link {
+    padding: 6px 12px;
+    background: #eee;
+    color: #000;
+    text-decoration: none;
+    border-radius: 4px;
+  }
+  .page-item.active .page-link {
+    background: #117733;
+    color: #fff;
+    font-weight: bold;
+  }
+</style>
+
 
   <!-- Favicon -->
   <link rel="icon" href="/psamalawi/images/favicon.png" type="image/x-icon">
